@@ -16,7 +16,13 @@ def load_data():
     accident.reset_index(drop=True, inplace=True)
     return accident
 
-page = st.sidebar.selectbox('Select page',['Homepage','Breakdown','Sankey'])
+#Load Wales Accidents location Dataset
+def load_location_data():
+    accident_location = pd.read_csv(r'location.csv')
+    accident_location.reset_index(drop=True, inplace=True)
+    return accident_location
+
+page = st.sidebar.selectbox('Select page',['Homepage','Breakdown', 'HeatMap', 'Sankey'])
 
 if page == 'Homepage':
     accident = load_data()
@@ -53,8 +59,8 @@ elif page == 'Breakdown':
 
     st.plotly_chart(fig,use_container_width=True)
 
-elif page == 'map':
-    wales_accident = load_data()
+elif page == 'HeatMap':
+    wales_accident = load_location_data()
     accident_area = list(zip(wales_accident.latitude, wales_accident.longitude))
     def generateBaseMap(default_location=[51.481583, -3.179090], default_zoom_start=6.5):
         base_map = folium.Map(location=default_location, control_scale=True,zoom_start=default_zoom_start)
