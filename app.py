@@ -9,6 +9,8 @@ import folium
 from folium import plugins
 from streamlit_folium import folium_static
 
+st.set_page_config(layout = 'wide')
+
 @st.cache
 # Load the Wales Accidents Dataset
 def load_data():
