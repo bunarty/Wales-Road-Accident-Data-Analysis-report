@@ -9,6 +9,8 @@ import folium
 from folium import plugins
 from streamlit_folium import folium_static
 
+
+
 @st.cache
 # Load the Wales Accidents Dataset
 def load_data():
@@ -60,14 +62,18 @@ elif page == 'Breakdown':
     st.plotly_chart(fig,use_container_width=True)
 
 elif page == 'HeatMap':
-    wales_accident = load_location_data()
-    accident_area = list(zip(wales_accident.latitude, wales_accident.longitude))
-    def generateBaseMap(default_location=[51.481583, -3.179090], default_zoom_start=6.5):
-        base_map = folium.Map(location=default_location, control_scale=True,zoom_start=default_zoom_start)
-        heatmap = plugins.HeatMap(accident_area, radius=4, blur=2)
+    st.title('Wales Road Accidents Report from 2016 to 2020')
+    st.header('Wales Road Accident Data Analysis and Visualisation')
+    st.markdown('This page displays a Heat map of accidents in Wales')
+
+    wales_accident_location = load_location_data()
+    accident_locations = list(zip( wales_accident_location.latitude,  wales_accident_location.longitude))
+    def generateHeatMap(default_location=[52.588160, -3.325960], default_zoom_start=7):
+        base_map = folium.Map(location=default_location, control_scale=True, tiles="Stamen Toner", zoom_start=default_zoom_start)
+        heatmap = plugins.HeatMap(accident_locations, radius=4, blur=2)
         base_map.add_child(heatmap)
         return base_map   
-    fig = generateBaseMap()  
+    fig = generateHeatMap()  
     folium_static(fig)
 
 else:
