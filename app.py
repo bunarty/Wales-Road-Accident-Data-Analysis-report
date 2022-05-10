@@ -9,8 +9,6 @@ import folium
 from folium import plugins
 from streamlit_folium import folium_static
 
-
-
 @st.cache
 # Load the Wales Accidents Dataset
 def load_data():
@@ -40,7 +38,7 @@ elif page == 'Breakdown':
     st.header('Wales Road Accident Data Analysis and Visualisation')
     st.markdown('This page displays a bar chart that gives more insight to the accidents that occured in Wales from the year 2016 to 2020.')
 
-    #
+    
     accident_cols = ['police_force', 'accident_severity',
                 'day_of_week','first_road_class', 'road_type','junction_detail', 'junction_control', 'local_authority_district',
                 'second_road_class', 'pedestrian_crossing_human_control', 'pedestrian_crossing_physical_facilities',
