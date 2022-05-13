@@ -26,23 +26,29 @@ def load_location_data():
     return accident_location
     
 #Main Sidebar navigation    
-page = st.sidebar.selectbox('Select page',['Home','Breakdown','Sankey Diagram', 'Heat Map'])
+page = st.sidebar.selectbox('Select page',['Home','Breakdown', 'Heat Map', 'Sankey Diagram'])
 
 #Home page
 if page == 'Home':
     accident = load_data()
     st.title('Wales Road Accidents Report')
-    st.header('Wales Road Accident Data Analysis and Visualisation')
-    st.markdown('This report aims to provide a documented insight into the analysis of Road Accidents that occured in Wales via visuals and text.')
-
+    st.header('Wales Road Accident records from 2016 to 2020')
+    st.markdown('This report aims to provide a documented insight into the analysis of Road Accidents Data of Wales through visuals and text recorded by the Welsh Police force.')
+    st.markdown('The former is responsible for the Wales local authorities districts of the United Kingdom.' + 
+    ' Road accidents are one of the most critical factors contributing to untimely deaths and economic losses to public and private property.' 
+    ' It is important to find sustainable countermeasures to minimise road accidents.'
+    ' The efficiency of accident prevention depends on the reliability of reported data, analysis performed and interpretation of results.')
+    st.markdown(' Below is a table containing the number of accident cases recorded by the Welsh police forcel from the year 2016 to 2020.' + 
+    ' According to the data there were 20881 accident cases within that time period.')
     st.dataframe(accident.head(accident.shape[0]))
 
 #Bar Charts page
-elif page == 'Break down':
+elif page == 'Breakdown':
     wales_accident = load_data()
     st.title('Wales Road Accidents Report')
-    st.header('Breakdown of Wales Road Accident Data via a barchart')
-    st.markdown('This page displays the breakdown')
+    st.header('Breakdown of Wales Road Accident Data via Bar Charts')
+    st.markdown('This page displays the breakdown of accidents that occured in Wales from 2016 to 2020 by comparing the number of accidents in Wales with various other factors producing a series of barcharts in the process.')
+    st.markdown('Hovering on each bar in a bar chart gives the exact number of collision cases recorded based on the criteria that the bar represents')
     accident_cols = ['police_force', 'accident_severity','local_authority_district',
                 'day_of_week','first_road_class', 'road_type','junction_detail', 'junction_control', 
                 'second_road_class', 'pedestrian_crossing_human_control', 'pedestrian_crossing_physical_facilities',
@@ -52,6 +58,7 @@ elif page == 'Break down':
     #Sidebar navigation for the Bar Charts
     sidebar = st.sidebar
     data_cols = sidebar.selectbox("Select Column:",accident_cols)
+  
 
     data = wales_accident.groupby(data_cols)['accident_index'].count().reset_index().sort_values(by='accident_index')
 
@@ -62,10 +69,10 @@ elif page == 'Break down':
     st.plotly_chart(fig,use_container_width=True)
 
 #Heat Map page
-elif page == 'HeatMap':
+elif page == 'Heat Map':
     st.title('Wales Road Accidents Report')
-    st.header('Wales Road Accident Data Analysis and Visualisation')
-    st.markdown('This page displays a Heat map of accidents in Wales')
+    st.header('A Heat Map displaying the Magnitude of Accidents Cases recorded in Wales from 2016 to 2020')
+    st.markdown('This page contains a heat map of accidents in Wales from the year 2016 to 2020. The region of South Wales has the highest magnitude of accidents in Wales as depicted by the heat map.')
 
     wales_accident_location = load_location_data()
     accident_locations = list(zip( wales_accident_location.latitude,  wales_accident_location.longitude))
@@ -75,14 +82,14 @@ elif page == 'HeatMap':
         base_map.add_child(heatmap)
         return base_map   
     fig = generateHeatMap()  
-    folium_static(fig)
+    folium_static(fig, width= 1200)
 
 #Sankey Diagram page
 else:
     st.title('Wales Road Accidents Report')
-    st.header('Wales Road Accident Data Analysis and Visualisation')
-    st.markdown('This page displays a sankey or flow diagram of accidents in Wales'
-     + 'through the Police force, Urbarn or Rural area, accident year and accident severity')
+    st.header('Visualisation of Wales Road Accident Data via a Sankey (or a Flow) Diagram')
+    st.markdown('This page displays a Sankey / flow diagram of accidents in Wales based on some factors such as ' + 
+    ' the police force that recorded the accident, whether the accident occurred in an Urban or Rural area, the year that the accident happened and the severity of the accident on the victims.')
 
     wales_accident = load_data()
     sankey_df = wales_accident.reindex(["police_force","urban_or_rural_area","accident_year","accident_severity"], axis=1)
@@ -136,5 +143,5 @@ else:
             color = "purple"
             ), 
         link = link)])
-    fig.update_layout(title_text="Sankey Diagram of Accidents in Wales", font_size=10)
-    st.plotly_chart(fig,use_container_width=True)'
+    fig.update_layout(title_text="A Sankey Diagram showing the flow of Accidents in Wales based on Police force, Urbarn or Rural area, Accident Year and Accident Serverity factors", font_size=10)
+    st.plotly_chart(fig,use_container_width=True)
