@@ -90,7 +90,7 @@ else:
     st.header('Visualisation of Wales Road Accident Data via a Sankey (or a Flow) Diagram')
     st.markdown('This page displays a Sankey / flow diagram of accidents in Wales based on some factors such as ' + 
     ' the police force that recorded the accident, whether the accident occurred in an Urban or Rural area, the year that the accident happened and the severity of the accident on the victims.')
-    st.markdown('Hovering on each flow line provides the number of accident cases recorded based on a certain factor')
+    st.markdown('Hovering on each flow line on the diagram provides the number of accident cases recorded based on a certain factor')
 
     wales_accident = load_data()
     sankey_df = wales_accident.reindex(["police_force","urban_or_rural_area","accident_year","accident_severity"], axis=1)
