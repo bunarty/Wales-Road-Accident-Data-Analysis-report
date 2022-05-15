@@ -47,13 +47,13 @@ elif page == 'Breakdown':
     wales_accident = load_data()
     st.title('Wales Road Accidents Report')
     st.header('Breakdown of Wales Road Accident Data via Bar Charts')
-    st.markdown('This page displays the breakdown of accidents that occured in Wales from 2016 to 2020 by comparing the number of accidents in Wales with various other factors producing a series of barcharts in the process.')
+    st.markdown('This page provides a breakdown of accidents that occured in Wales from 2016 to 2020 by comparing the number of accidents in Wales with various other factors producing a series of barcharts in the process.')
     st.markdown('Hovering on each bar in a bar chart gives the exact number of collision cases recorded based on the criteria that the bar represents')
     accident_cols = ['police_force', 'accident_severity','local_authority_district',
                 'day_of_week','first_road_class', 'road_type','junction_detail', 'junction_control', 
                 'second_road_class', 'pedestrian_crossing_human_control', 'pedestrian_crossing_physical_facilities',
-                 'light_conditions', 'weather_conditions', 'road_surface_conditions', 'special_conditions_at_site', 
-                 'carriageway_hazards', 'urban_or_rural_area', 'did_police_officer_attend_scene_of_accident']
+                'light_conditions', 'weather_conditions', 'road_surface_conditions', 'special_conditions_at_site', 
+                'carriageway_hazards', 'urban_or_rural_area', 'did_police_officer_attend_scene_of_accident']
                  
     #Sidebar navigation for the Bar Charts
     sidebar = st.sidebar
